@@ -25,6 +25,12 @@ Tool-specific instructions:
    - For search: { books(q: $q, maxResults: $maxResults) { volumeId title authors } }
    - Variables: { "q": "search terms", "maxResults": 5 }
 
+3. file_reader:
+   - Query: { readFile(path: $path) { content mimeType fileName } }
+   - Variables: { "path": "/path/to/file" }
+   - Supports: PDF, DOCX, XLSX, PPTX, and text files
+   - Returns extracted text content from the file
+
    refer to previous messages for context and use them to accurately answer the question
 `;
 

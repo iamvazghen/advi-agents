@@ -1,15 +1,22 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import { ConvexClientProvider } from "@/components/ConvexClientProvider";
+import { Toaster } from "@/components/ui/toaster";
+import { ClerkProvider } from "@clerk/nextjs";
+import { AgentProvider } from "@/lib/context/agent";
+import { SettingsProvider } from "@/lib/context/settings";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const ibmPlexSans = IBM_Plex_Sans({
+  variable: "--font-ibm-plex-sans",
+  weight: ["400", "500", "600"],
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const ibmPlexMono = IBM_Plex_Mono({
+  variable: "--font-ibm-plex-mono",
+  weight: ["400", "500"],
   subsets: ["latin"],
 });
 
@@ -24,14 +31,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ConvexClientProvider>
-      <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          {children}
-        </body>
-      </html>
-    </ConvexClientProvider>
+    <ClerkProvider>
+      <ConvexClientProvider>
+      <ThemeProvider>
+        <html lang="en" suppressHydrationWarning>
+          <body
+            suppressHydrationWarning
+            className={`${ibmPlexSans.variable} ${ibmPlexMono.variable} antialiased bg-background text-foreground`}
+          >
+            <AgentProvider>
+              <SettingsProvider>
+                {children}
+                <Toaster />
+              </SettingsProvider>
+            </AgentProvider>
+            </body>
+          </html>
+        </ThemeProvider>
+      </ConvexClientProvider>
+    </ClerkProvider>
   );
 }

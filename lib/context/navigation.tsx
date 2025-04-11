@@ -6,6 +6,8 @@ interface NavigationContextType {
   isMobileNavOpen: boolean;
   setIsMobileNavOpen: (open: boolean) => void;
   closeMobileNav: () => void;
+  isSidebarOpen: boolean; // Added state for desktop sidebar
+  toggleSidebar: () => void; // Added toggle function
 }
 
 const NavigationContext = createContext<NavigationContextType | undefined>(
@@ -18,12 +20,14 @@ export function NavigationProvider({
   children: React.ReactNode;
 }) {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Sidebar starts open
 
   const closeMobileNav = () => setIsMobileNavOpen(false);
+  const toggleSidebar = () => setIsSidebarOpen((prev) => !prev); // Toggle function
 
   return (
     <NavigationContext
-      value={{ isMobileNavOpen, setIsMobileNavOpen, closeMobileNav }}
+      value={{ isMobileNavOpen, setIsMobileNavOpen, closeMobileNav, isSidebarOpen, toggleSidebar }}
     >
       {children}
     </NavigationContext>

@@ -63,8 +63,19 @@ export type StreamMessage =
   | ToolStartMessage
   | ToolEndMessage;
 
+export interface UserFile {
+  name: string;
+  type: string;
+  size: number;
+  storageId: string;
+  uploadedAt: number;
+}
+
 export interface ChatRequestBody {
   messages: Message[];
   newMessage: string;
   chatId: Id<"chats">;
+  userFiles: UserFile[];
+  userId: string;
+  orgId: string; // Added for organization context
 }

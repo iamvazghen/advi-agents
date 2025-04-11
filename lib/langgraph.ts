@@ -47,7 +47,7 @@ const initialiseModel = () => {
     modelName: "claude-3-5-sonnet-20241022",
     anthropicApiKey: process.env.ANTHROPIC_API_KEY,
     temperature: 0.7,
-    maxTokens: 4096,
+    maxTokens: 8000,
     streaming: true,
     clientOptions: {
       defaultHeaders: {

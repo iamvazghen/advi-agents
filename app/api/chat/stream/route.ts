@@ -28,14 +28,23 @@ function sendSSEMessage(
 
 export async function POST(req: Request) {
   try {
-    const { userId } = await auth();
+    const { userId, getToken } = await auth();
     if (!userId) {
       return new Response("Unauthorized", { status: 401 });
     }
 
-    const { messages, newMessage, chatId } =
+    const { messages, newMessage, chatId, orgId } =
       (await req.json()) as ChatRequestBody;
+    
+    // Get the Convex auth token from Clerk
+    const token = await getToken({ template: "convex" });
+    if (!token) {
+      return new Response("Failed to get authentication token", { status: 500 });
+    }
+    
+    // Create and authenticate the Convex client
     const convex = getConvexClient();
+    convex.setAuth(token); // Set the auth token on the client
 
     // Create stream with larger queue strategy for better performance
     const stream = new TransformStream({}, { highWaterMark: 1024 });
@@ -56,11 +65,9 @@ export async function POST(req: Request) {
         // Send initial connection established message
         await sendSSEMessage(writer, { type: StreamMessageType.Connected });
 
-        // Send user message to Convex
-        await convex.mutation(api.messages.send, {
-          chatId,
-          content: newMessage,
-        });
+        // We don't need to send the message to Convex here
+        // The ChatInterface component already stores the user message
+        // Sending it again here would cause the message to be duplicated
 
         // Convert messages to LangChain format
         const langChainMessages = [

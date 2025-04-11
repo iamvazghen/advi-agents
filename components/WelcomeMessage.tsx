@@ -1,36 +1,82 @@
+import { useTheme } from "@/lib/theme";
+import { cn } from "@/lib/utils";
+
 export default function WelcomeMessage() {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
   return (
-    <div className="flex flex-col items-center justify-center h-full mt-10">
-      <div className="bg-white rounded-2xl shadow-sm ring-1 ring-inset ring-gray-200 px-6 py-5 max-w-lg w-full">
-        <h2 className="text-xl font-semibold text-gray-900 mb-2">
-          Welcome to AI Agent Chat! 👋
+    <div className={cn(
+      "flex flex-col items-center justify-center h-full mt-10",
+      isDark ? "bg-gray-900" : "bg-gray-50"
+    )}>
+      <div className={cn(
+        "rounded-2xl shadow-sm ring-1 ring-inset px-6 py-5 max-w-lg w-full",
+        isDark ? "bg-gray-800 ring-gray-700" : "bg-white ring-gray-200"
+      )}>
+        <h2 className={cn(
+          "text-xl font-semibold mb-2",
+          isDark ? "text-white" : "text-gray-900"
+        )}>
+          Welcome to Advi Agents! 👋
         </h2>
-        <p className="text-gray-600 mb-4 leading-relaxed">
-          I can help you with:
+        <p className={cn(
+          "mb-4 leading-relaxed",
+          isDark ? "text-gray-300" : "text-gray-600"
+        )}>
+          We can help you with:
         </p>
-        <ul className="space-y-2 text-gray-600">
+        <ul className={cn(
+          "space-y-2",
+          isDark ? "text-gray-300" : "text-gray-600"
+        )}>
           <li className="flex items-start gap-2">
-            <span className="text-blue-500 mt-1">•</span>
-            <span>Finding and analyzing YouTube video transcripts</span>
+            <span className={cn(
+              "mt-1",
+              isDark ? "text-purple-400" : "text-purple-500"
+            )}>•</span>
+            <span>Managing large amounts of emails and providing responses to them</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-blue-500 mt-1">•</span>
-            <span>Searching through Google Books</span>
+            <span className={cn(
+              "mt-1",
+              isDark ? "text-purple-400" : "text-purple-500"
+            )}>•</span>
+            <span>Organizing the documentation for your business and being the 24/7 accessible personal & corporate lawyer for you</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-blue-500 mt-1">•</span>
-            <span>Processing data with JSONata</span>
+            <span className={cn(
+              "mt-1",
+              isDark ? "text-purple-400" : "text-purple-500"
+            )}>•</span>
+            <span>Creating multiple types of content for your social media and managing accounts on the platform</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-blue-500 mt-1">•</span>
-            <span>Retrieve all Customer and Order data</span>
+            <span className={cn(
+              "mt-1",
+              isDark ? "text-purple-400" : "text-purple-500"
+            )}>•</span>
+            <span>Fully taking charge on recrtuiting proccess & constantly educating employees</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-blue-500 mt-1">•</span>
-            <span>Retrieve all Comments from the Comments API</span>
+            <span className={cn(
+              "mt-1",
+              isDark ? "text-purple-400" : "text-purple-500"
+            )}>•</span>
+            <span>Manage marketing campaigns</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className={cn(
+              "mt-1",
+              isDark ? "text-purple-400" : "text-purple-500"
+            )}>•</span>
+            <span>Fully take care of all IT operations</span>
           </li>
         </ul>
-        <p className="text-gray-600 mt-4 leading-relaxed">
+        <p className={cn(
+          "mt-4 leading-relaxed",
+          isDark ? "text-purple-400" : "text-purple-600"
+        )}>
           Feel free to ask me anything! I&apos;m here to help.
         </p>
       </div>
